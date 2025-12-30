@@ -37,3 +37,12 @@
 - [x] Remover referências a tRPC no código
 - [x] Atualizar README para refletir estrutura frontend pura
 - [x] Testar build e dev server
+
+
+## Push para GitHub
+
+- [ ] Configurar remote do repositório GitHub
+- [ ] Criar .gitignore apropriado
+- [ ] Fazer commit inicial do código frontend
+- [ ] Push para repositório remoto
+- [ ] Documentar processo de deploy no Vercel
