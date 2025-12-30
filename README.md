@@ -2,13 +2,13 @@
 
 **Plataforma profissional de treino de poker com estratégias GTO**
 
-Recreativo Pro é uma aplicação web moderna desenvolvida para transformar jogadores recreativos em profissionais através de metodologia baseada em estratégias GTO (Game Theory Optimal). A plataforma oferece ranges otimizados, modo de treino interativo e ferramentas de gestão de bankroll.
+Recreativo Pro é uma aplicação web frontend desenvolvida com Vite + React + TypeScript para transformar jogadores recreativos em profissionais através de metodologia baseada em estratégias GTO (Game Theory Optimal).
 
 ---
 
 ## 🎯 Sobre o Projeto
 
-O **Recreativo Pro** foi desenvolvido como uma base sólida e escalável para treino de poker, com foco em:
+O **Recreativo Pro** é um projeto **frontend puro** (sem backend) com foco em:
 
 - **Autenticação segura** com Supabase Auth
 - **Proteção de rotas** para garantir acesso apenas a usuários autenticados
@@ -21,6 +21,7 @@ O **Recreativo Pro** foi desenvolvido como uma base sólida e escalável para tr
 ## 🚀 Tecnologias Utilizadas
 
 ### Frontend
+- **Vite** - Build tool e dev server ultra-rápido
 - **React 19** - Biblioteca para construção de interfaces
 - **TypeScript** - Tipagem estática para JavaScript
 - **Tailwind CSS 4** - Framework CSS utilitário
@@ -31,11 +32,6 @@ O **Recreativo Pro** foi desenvolvido como uma base sólida e escalável para tr
 ### Backend & Autenticação
 - **Supabase** - Backend as a Service (PostgreSQL + Auth)
 - **Supabase Auth** - Sistema de autenticação completo
-
-### Infraestrutura
-- **Vite** - Build tool e dev server
-- **Vitest** - Framework de testes
-- **pnpm** - Gerenciador de pacotes
 
 ---
 
@@ -178,12 +174,6 @@ pnpm dev
 
 Acesse: `http://localhost:5173`
 
-### Executar Testes
-
-```bash
-pnpm test
-```
-
 ### Build para Produção
 
 ```bash
@@ -192,44 +182,47 @@ pnpm build
 
 Os arquivos otimizados estarão em `dist/`.
 
+### Preview da Build
+
+```bash
+pnpm preview
+```
+
 ---
 
 ## 🚀 Deploy no Vercel
 
-### 1. Instale a CLI do Vercel
+### Método 1: Via Interface Web
+
+1. Acesse [vercel.com](https://vercel.com) e faça login
+2. Clique em "Add New Project"
+3. Importe seu repositório do GitHub
+4. Configure as variáveis de ambiente:
+   - `VITE_SUPABASE_URL`
+   - `VITE_SUPABASE_ANON_KEY`
+5. Clique em "Deploy"
+
+### Método 2: Via CLI
 
 ```bash
+# Instalar Vercel CLI
 npm install -g vercel
-```
 
-### 2. Faça Login no Vercel
-
-```bash
+# Fazer login
 vercel login
-```
 
-### 3. Deploy
-
-```bash
+# Deploy
 vercel
 ```
 
-Siga as instruções no terminal.
+### Configuração Pós-Deploy
 
-### 4. Configure as Variáveis de Ambiente no Vercel
+No Supabase, atualize as URLs de redirecionamento:
 
-No painel do Vercel:
-
-1. Vá em **Settings** → **Environment Variables**
+1. Vá em **Authentication** → **Settings**
 2. Adicione:
-   - `VITE_SUPABASE_URL`: URL do seu projeto Supabase
-   - `VITE_SUPABASE_ANON_KEY`: Chave pública do Supabase
-
-### 5. Atualize a URL de Redirecionamento no Supabase
-
-No Supabase, vá em **Authentication** → **Settings** e adicione:
-- **Site URL**: `https://seu-app.vercel.app`
-- **Redirect URLs**: `https://seu-app.vercel.app/dashboard`
+   - **Site URL**: `https://seu-app.vercel.app`
+   - **Redirect URLs**: `https://seu-app.vercel.app/dashboard`
 
 ---
 
@@ -237,31 +230,28 @@ No Supabase, vá em **Authentication** → **Settings** e adicione:
 
 ```
 recreativo-pro/
-├── client/                  # Frontend React
-│   ├── src/
-│   │   ├── components/      # Componentes reutilizáveis
-│   │   │   ├── ui/          # Componentes shadcn/ui
-│   │   │   └── ProtectedRoute.tsx
-│   │   ├── contexts/        # Contextos React
-│   │   │   ├── AuthContext.tsx
-│   │   │   └── ThemeContext.tsx
-│   │   ├── lib/             # Utilitários e configurações
-│   │   │   ├── supabase.ts  # Cliente Supabase
-│   │   │   └── trpc.ts
-│   │   ├── pages/           # Páginas da aplicação
-│   │   │   ├── Login.tsx
-│   │   │   ├── Dashboard.tsx
-│   │   │   └── NotFound.tsx
-│   │   ├── App.tsx          # Configuração de rotas
-│   │   ├── main.tsx         # Ponto de entrada
-│   │   └── index.css        # Estilos globais
-│   └── index.html
-├── server/                  # Backend (tRPC)
-│   ├── routers.ts
-│   ├── db.ts
-│   └── supabase.test.ts     # Testes de validação
+├── public/                  # Arquivos estáticos
+├── src/
+│   ├── components/          # Componentes reutilizáveis
+│   │   ├── ui/              # Componentes shadcn/ui
+│   │   ├── ProtectedRoute.tsx
+│   │   └── ErrorBoundary.tsx
+│   ├── contexts/            # Contextos React
+│   │   ├── AuthContext.tsx
+│   │   └── ThemeContext.tsx
+│   ├── lib/                 # Utilitários e configurações
+│   │   ├── supabase.ts      # Cliente Supabase
+│   │   └── utils.ts
+│   ├── pages/               # Páginas da aplicação
+│   │   ├── Login.tsx
+│   │   ├── Dashboard.tsx
+│   │   └── NotFound.tsx
+│   ├── App.tsx              # Configuração de rotas
+│   ├── main.tsx             # Ponto de entrada
+│   └── index.css            # Estilos globais
+├── index.html               # HTML principal
 ├── package.json
-├── vite.config.ts
+├── vite.config.ts           # Configuração do Vite
 ├── tailwind.config.js
 ├── tsconfig.json
 ├── todo.md                  # Checklist de funcionalidades
@@ -313,28 +303,6 @@ O projeto utiliza **shadcn/ui**, uma coleção de componentes acessíveis e cust
 
 ---
 
-## 🧪 Testes
-
-O projeto inclui testes automatizados com Vitest:
-
-```bash
-# Executar todos os testes
-pnpm test
-
-# Executar testes em modo watch
-pnpm test --watch
-
-# Executar testes com coverage
-pnpm test --coverage
-```
-
-### Testes Implementados
-
-- ✅ Validação de credenciais do Supabase
-- ✅ Teste de conexão com Supabase Auth
-
----
-
 ## 🤝 Contribuindo
 
 Contribuições são bem-vindas! Para contribuir:
@@ -361,6 +329,7 @@ Para dúvidas ou sugestões, entre em contato através do email: contato@recreat
 
 ## 🙏 Agradecimentos
 
+- [Vite](https://vitejs.dev) - Build tool ultra-rápido
 - [Supabase](https://supabase.com) - Backend e autenticação
 - [shadcn/ui](https://ui.shadcn.com) - Componentes UI
 - [Lucide](https://lucide.dev) - Ícones

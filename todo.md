@@ -24,3 +24,16 @@
 - [ ] Ranges GTO funcionais
 - [ ] Modo treino funcional
 - [ ] Gestão de bankroll funcional
+
+
+## Conversão para Frontend Puro
+
+- [x] Remover pasta server/ e toda estrutura de backend
+- [x] Remover dependências de backend (Express, tRPC, etc)
+- [x] Ajustar package.json para scripts Vite puros
+- [x] Mover index.html para raiz do projeto
+- [x] Reorganizar estrutura src/ para padrão Vite
+- [x] Atualizar vite.config.ts para configuração frontend pura
+- [x] Remover referências a tRPC no código
+- [x] Atualizar README para refletir estrutura frontend pura
+- [x] Testar build e dev server
