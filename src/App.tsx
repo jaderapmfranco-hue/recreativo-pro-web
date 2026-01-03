@@ -8,6 +8,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import QuizIniciante from "./pages/QuizIniciante";
 
 function Router() {
   return (
@@ -17,6 +18,11 @@ function Router() {
       <Route path="/dashboard">
         <ProtectedRoute>
           <Dashboard />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/quiz-iniciante">
+        <ProtectedRoute>
+          <QuizIniciante />
         </ProtectedRoute>
       </Route>
       <Route path="/404" component={NotFound} />

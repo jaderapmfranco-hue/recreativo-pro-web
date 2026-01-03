@@ -91,3 +91,64 @@
 - [x] Build de produção sem erros
 - [x] TypeScript sem erros
 - [x] Contexto renderizando corretamente acima da mesa
+
+
+## 🎯 Quiz Iniciante - MATRIZ 3
+
+### Contexto Geral
+- [x] Remover completamente qualquer mesa/lógica/perguntas anteriores
+- [x] Mesa SVG como fonte visual oficial
+- [x] Lógica vem exclusivamente das perguntas
+- [x] Mesa apenas reflete o estado da pergunta
+
+### MATRIZ 3 (Travada)
+- [x] Layout físico nunca muda
+- [x] Coordenadas nunca mudam
+- [x] Hero sempre no slot S0 (embaixo)
+- [x] Dealer sempre acompanha o BTN
+- [x] Cartas do hero sempre abertas
+- [x] Cartas dos vilões sempre fechadas
+
+### Slots Fixos (9 posições)
+- [x] S0 = hero (fixo, embaixo)
+- [x] S1 a S8 = outros jogadores
+- [x] Slots nunca mudam de lugar
+- [x] Nunca associar slot a posição de poker
+
+### Ordem Oficial das Posições (9-max)
+- [x] BTN → SB → BB → UTG → UTG+1 → MP → MP+1 → HJ → CO → BTN
+- [x] Implementar lógica de rotação
+- [x] Atribuir hero_position ao S0
+- [x] Preencher demais slots seguindo ordem oficial
+- [x] Aplicar apenas substituição de rótulos
+
+### Regra das Cores (Travada)
+- [x] 🔴 Vermelho: SB, BB, UTG, UTG+1
+- [x] 🔵 Azul: MP, MP+1
+- [x] 🟢 Verde: HJ, CO, BTN
+- [x] 🟡 Dealer: sempre acompanha BTN
+- [x] Cores dependem do rótulo, nunca do slot
+
+### Pergunta Teste (Obrigatória)
+- [x] Implementar pergunta teste_001
+- [x] Hero no CO com 30bb e AKs
+- [x] Sequência: UTG fold, UTG+1 fold, MP fold
+- [x] Opções: Fold, Call, Raise
+- [x] Resposta correta: Raise
+
+### Feedback Automático
+- [x] Raise: "Correto. No CO, com 30bb e AKs..."
+- [x] Call: "Jogar passivamente..."
+- [x] Fold: "AKs é uma mão forte demais..."
+
+### Regras Finais (Não Negociáveis)
+- [x] Nunca inventar posições
+- [x] Nunca mover slots
+- [x] Nunca aplicar cor por slot
+- [x] Nunca gerar mesa sem pergunta
+- [x] Nunca alterar a MATRIZ 3
+
+### Validação
+- [x] Build de produção sem erros
+- [x] TypeScript sem erros
+- [x] Quiz funcionando corretamente
