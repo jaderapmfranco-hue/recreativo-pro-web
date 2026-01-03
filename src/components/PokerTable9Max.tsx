@@ -14,6 +14,7 @@ interface PokerTable9MaxProps {
   hero_label: string
   hero_zone_color: 'Red' | 'Blue' | 'Green'
   dealer_position: 'S0' | 'S1' | 'S2' | 'S3' | 'S4' | 'S5' | 'S6' | 'S7' | 'S8'
+  hero_cards?: string // ex: "A♠ K♠"
 }
 
 /**
@@ -32,6 +33,21 @@ const SEAT_COORDINATES: Record<string, { x: number; y: number }> = {
 }
 
 /**
+ * Labels padrão para cada assento (ordem horária a partir de S0)
+ */
+const DEFAULT_SEAT_LABELS: Record<string, string> = {
+  'S0': 'Hero', // Será substituído por hero_label
+  'S1': 'SB',
+  'S2': 'BB',
+  'S3': 'UTG',
+  'S4': 'UTG+1',
+  'S5': 'MP',
+  'S6': 'MP+1',
+  'S7': 'HJ',
+  'S8': 'CO'
+}
+
+/**
  * Mapeamento de cores para classes CSS
  */
 const ZONE_COLOR_CLASS: Record<string, string> = {
@@ -43,10 +59,31 @@ const ZONE_COLOR_CLASS: Record<string, string> = {
 export default function PokerTable9Max({
   hero_label,
   hero_zone_color,
-  dealer_position
+  dealer_position,
+  hero_cards = 'A♠ K♠'
 }: PokerTable9MaxProps) {
   const zoneClass = ZONE_COLOR_CLASS[hero_zone_color]
   const dealerCoords = SEAT_COORDINATES[dealer_position]
+  
+  // Renderizar assento de vilão (S1-S8)
+  const renderVillainSeat = (seatId: string) => {
+    const coords = SEAT_COORDINATES[seatId]
+    const label = DEFAULT_SEAT_LABELS[seatId]
+    
+    return (
+      <g key={seatId} transform={`translate(${coords.x},${coords.y})`}>
+        {/* Círculo do assento */}
+        <circle r="16" className="st" filter="url(#shadow)"/>
+        {/* Label da posição */}
+        <text className="lb" y="-22">{label}</text>
+        {/* Cartas fechadas (verso azul) */}
+        <g transform="translate(-8, 5)">
+          <rect x="0" y="0" width="7" height="10" rx="1" fill="#1e40af" stroke="#1e3a8a" strokeWidth="0.5"/>
+          <rect x="9" y="0" width="7" height="10" rx="1" fill="#1e40af" stroke="#1e3a8a" strokeWidth="0.5"/>
+        </g>
+      </g>
+    )
+  }
   
   return (
     <div className="w-full max-w-4xl mx-auto">
@@ -63,10 +100,11 @@ export default function PokerTable9Max({
             .tf { fill: #1e7f3b; } /* table-felt */
             .st { fill: #ffffff; stroke: #333; stroke-width: 1; } /* seat */
             .hs { fill: #ffd966; stroke: #b8860b; stroke-width: 2.5; } /* hero-seat */
-            .lb { font-family: 'Segoe UI', Arial; font-size: 9px; font-weight: bold; text-anchor: middle; dominant-baseline: middle; }
+            .lb { font-family: 'Segoe UI', Arial; font-size: 9px; font-weight: bold; text-anchor: middle; dominant-baseline: middle; fill: #333; }
             .rr { fill: none; stroke: #ff4d4d; stroke-width: 3; opacity: 0.8; } /* ring-red */
             .rb { fill: none; stroke: #4d94ff; stroke-width: 3; opacity: 0.8; } /* ring-blue */
             .rg { fill: none; stroke: #4dff88; stroke-width: 3; opacity: 0.8; } /* ring-green */
+            .card-text { font-family: 'Segoe UI', Arial; font-size: 7px; font-weight: bold; text-anchor: middle; dominant-baseline: middle; }
           `}</style>
         </defs>
         
@@ -74,11 +112,25 @@ export default function PokerTable9Max({
         <rect x="70" y="60" width="460" height="180" rx="90" className="tb" />
         <rect x="75" y="65" width="450" height="170" rx="85" className="tf" />
 
+        {/* Assentos dos Vilões (S1-S8) */}
+        {['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8'].map(renderVillainSeat)}
+
         {/* Assento do Hero (S0) - Fixo */}
         <g id="hero_seat" transform={`translate(${SEAT_COORDINATES.S0.x},${SEAT_COORDINATES.S0.y})`}>
           <circle r="20" className={zoneClass}/>
           <circle r="16" className="hs" filter="url(#shadow)"/>
           <text className="lb">{hero_label}</text>
+          
+          {/* Cartas do Hero (abertas) */}
+          <g transform="translate(-12, 5)">
+            {/* Primeira carta */}
+            <rect x="0" y="0" width="10" height="14" rx="1" fill="#ffffff" stroke="#333" strokeWidth="0.5"/>
+            <text className="card-text" x="5" y="7" fill="#000">{hero_cards.split(' ')[0]}</text>
+            
+            {/* Segunda carta */}
+            <rect x="14" y="0" width="10" height="14" rx="1" fill="#ffffff" stroke="#333" strokeWidth="0.5"/>
+            <text className="card-text" x="19" y="7" fill="#000">{hero_cards.split(' ')[1]}</text>
+          </g>
         </g>
 
         {/* Chip Dealer (D) - Dinâmico */}

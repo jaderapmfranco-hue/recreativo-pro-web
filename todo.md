@@ -182,3 +182,33 @@
 - [x] Build de produção sem erros
 - [x] TypeScript sem erros
 - [x] Mesa renderizando corretamente com props dinâmicos
+
+
+## 🪑 Adicionar 8 Assentos Restantes (S1-S8)
+
+### Objetivo
+- [x] Completar mesa 9-max com todos os assentos visíveis
+- [x] Manter coordenadas fixas para cada assento
+- [x] Adicionar labels padrão das posições de poker
+
+### Assentos a Adicionar
+- [x] S1: Direita inferior (label padrão: SB)
+- [x] S2: Direita meio-inferior (label padrão: BB)
+- [x] S3: Direita meio (label padrão: UTG)
+- [x] S4: Direita superior (label padrão: UTG+1)
+- [x] S5: Centro superior (label padrão: MP)
+- [x] S6: Esquerda superior (label padrão: MP+1)
+- [x] S7: Esquerda meio (label padrão: HJ)
+- [x] S8: Esquerda inferior (label padrão: CO)
+
+### Implementação
+- [x] Adicionar círculos brancos (.st) para cada assento
+- [x] Adicionar labels de texto para cada posição
+- [x] Adicionar cartas fechadas (verso azul) para vilões
+- [x] Manter filtros de sombra
+- [x] Garantir que labels sejam dinâmicos (não hardcoded)
+
+### Validação
+- [x] Build de produção sem erros
+- [x] TypeScript sem erros
+- [x] Mesa 9-max completa renderizando corretamente
