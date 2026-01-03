@@ -212,3 +212,33 @@
 - [x] Build de produção sem erros
 - [x] TypeScript sem erros
 - [x] Mesa 9-max completa renderizando corretamente
+
+
+## 🎓 5 Questões de Identificação de Posições
+
+### Objetivo
+- [x] Implementar 5 questões educacionais usando motor PokerTable9Max
+- [x] Sistema de navegação entre questões (Anterior/Próxima)
+- [x] Contador de progresso (Pergunta X de 5)
+- [x] Feedback educacional para cada resposta
+
+### Questões a Implementar
+- [x] Q1: Identificação do Botão (BTN, Verde, D em S0)
+- [x] Q2: Primeiro a Agir - UTG (UTG, Vermelho, D em S6)
+- [x] Q3: Small Blind (SB, Vermelho, D em S8)
+- [x] Q4: Big Blind e Zonas (BB, Vermelho, D em S7)
+- [x] Q5: O Corte - Cutoff (CO, Verde, D em S1)
+
+### Implementação
+- [x] Criar array QUIZ_QUESTIONS em src/types/quiz.ts
+- [x] Adicionar interface QuizQuestion com dealer_position
+- [x] Atualizar QuizIniciante com useState para currentQuestionIndex
+- [x] Adicionar botões Anterior/Próxima Pergunta
+- [x] Implementar lógica de navegação
+- [x] Integrar com PokerTable9Max usando variáveis dinâmicas
+
+### Validação
+- [x] Build de produção sem erros
+- [x] TypeScript sem erros
+- [x] Navegação entre questões funcionando
+- [x] Feedback correto para cada resposta

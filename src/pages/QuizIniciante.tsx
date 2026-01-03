@@ -1,39 +1,17 @@
 import { useState } from 'react'
 import { useLocation } from 'wouter'
-import { ChevronLeft, CheckCircle2, XCircle, Info } from 'lucide-react'
+import { ChevronLeft, CheckCircle2, XCircle, Info, ArrowLeft, ArrowRight } from 'lucide-react'
 import PokerTable9Max from '../components/PokerTable9Max'
-import { QUIZ_TESTE_001, QuizQuestion } from '../types/quiz'
-import { POSITION_COLORS } from '../utils/positionRotation'
+import { QUIZ_QUESTIONS } from '../types/quiz'
 
 export default function QuizIniciante() {
   const [, setLocation] = useLocation()
-  const [currentQuestion] = useState<QuizQuestion>(QUIZ_TESTE_001)
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
   const [showFeedback, setShowFeedback] = useState(false)
   
-  // Mapear cor da posição do hero para prop do componente
-  const heroZoneColor = POSITION_COLORS[currentQuestion.hero_position]
-  const heroZoneColorCapitalized = heroZoneColor.charAt(0).toUpperCase() + heroZoneColor.slice(1) as 'Red' | 'Blue' | 'Green'
-  
-  // Por enquanto, dealer sempre em S0 (será dinâmico no futuro)
-  const dealerPosition = 'S0' as const
-  
-  // Construir texto da ação até o momento
-  const buildActionText = () => {
-    if (currentQuestion.action_sequence.length === 0) {
-      return 'Ação inicia'
-    }
-    
-    const actions = currentQuestion.action_sequence.map(seq => {
-      const actionText = seq.action === 'fold' ? 'folda' : 
-                        seq.action === 'call' ? 'call' :
-                        seq.action === 'raise' ? `raise ${seq.amount || ''}` :
-                        'check'
-      return `${seq.position} ${actionText}`
-    })
-    
-    return actions.join(', ')
-  }
+  const currentQuestion = QUIZ_QUESTIONS[currentQuestionIndex]
+  const totalQuestions = QUIZ_QUESTIONS.length
   
   const handleAnswerSelect = (answer: string) => {
     setSelectedAnswer(answer)
@@ -41,7 +19,22 @@ export default function QuizIniciante() {
   }
   
   const handleNextQuestion = () => {
-    // Por enquanto, apenas reseta (futuramente vai para próxima pergunta)
+    if (currentQuestionIndex < totalQuestions - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1)
+      setSelectedAnswer(null)
+      setShowFeedback(false)
+    }
+  }
+  
+  const handlePreviousQuestion = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(currentQuestionIndex - 1)
+      setSelectedAnswer(null)
+      setShowFeedback(false)
+    }
+  }
+  
+  const handleTryAgain = () => {
     setSelectedAnswer(null)
     setShowFeedback(false)
   }
@@ -63,7 +56,9 @@ export default function QuizIniciante() {
             </button>
             <div className="text-right">
               <h1 className="text-xl font-bold">Quiz Iniciante</h1>
-              <p className="text-sm text-slate-400">Pergunta 1 de 1</p>
+              <p className="text-sm text-slate-400">
+                Pergunta {currentQuestionIndex + 1} de {totalQuestions}
+              </p>
             </div>
           </div>
         </div>
@@ -73,34 +68,13 @@ export default function QuizIniciante() {
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-5xl mx-auto space-y-6">
           
-          {/* Contexto Textual */}
-          <div className="bg-slate-800 rounded-xl p-6 border border-slate-700">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              <div>
-                <p className="text-xs font-medium text-slate-400 mb-1">Torneio</p>
-                <p className="text-sm font-bold text-white">MTT</p>
-              </div>
-              <div>
-                <p className="text-xs font-medium text-slate-400 mb-1">Fase</p>
-                <p className="text-sm font-bold text-white">Meio</p>
-              </div>
-              <div>
-                <p className="text-xs font-medium text-slate-400 mb-1">Stack Efetivo</p>
-                <p className="text-sm font-bold text-white">{currentQuestion.hero_stack}</p>
-              </div>
-              <div className="col-span-2 md:col-span-1">
-                <p className="text-xs font-medium text-slate-400 mb-1">Ação</p>
-                <p className="text-sm font-bold text-white">{buildActionText()}</p>
-              </div>
-            </div>
-          </div>
-
           {/* Mesa de Poker */}
           <div className="bg-slate-800 rounded-xl p-6 border border-slate-700">
             <PokerTable9Max
               hero_label={currentQuestion.hero_position}
-              hero_zone_color={heroZoneColorCapitalized}
-              dealer_position={dealerPosition}
+              hero_zone_color={currentQuestion.hero_zone_color}
+              dealer_position={currentQuestion.dealer_position}
+              hero_cards={currentQuestion.hero_cards}
             />
           </div>
 
@@ -119,7 +93,7 @@ export default function QuizIniciante() {
 
           {/* Opções de Resposta */}
           <div className="bg-slate-800 rounded-xl p-6 border border-slate-700">
-            <h3 className="text-lg font-bold mb-4">Escolha sua ação:</h3>
+            <h3 className="text-lg font-bold mb-4">Escolha sua resposta:</h3>
             <div className="grid gap-3">
               {currentQuestion.options.map((option) => {
                 const isSelected = selectedAnswer === option
@@ -186,16 +160,81 @@ export default function QuizIniciante() {
                 </div>
               </div>
               
-              <div className="flex justify-end mt-4">
-                <button
-                  onClick={handleNextQuestion}
-                  className="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium transition-colors"
-                >
-                  Tentar Novamente
-                </button>
+              <div className="flex justify-end gap-3 mt-4">
+                {!isCorrect && (
+                  <button
+                    onClick={handleTryAgain}
+                    className="px-6 py-2 bg-slate-600 hover:bg-slate-700 rounded-lg font-medium transition-colors"
+                  >
+                    Tentar Novamente
+                  </button>
+                )}
+                {currentQuestionIndex < totalQuestions - 1 && (
+                  <button
+                    onClick={handleNextQuestion}
+                    className="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium transition-colors flex items-center gap-2"
+                  >
+                    Próxima Pergunta
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                )}
+                {currentQuestionIndex === totalQuestions - 1 && isCorrect && (
+                  <button
+                    onClick={() => setLocation('/dashboard')}
+                    className="px-6 py-2 bg-green-600 hover:bg-green-700 rounded-lg font-medium transition-colors"
+                  >
+                    Finalizar Quiz
+                  </button>
+                )}
               </div>
             </div>
           )}
+
+          {/* Navegação entre Questões */}
+          <div className="flex justify-between items-center">
+            <button
+              onClick={handlePreviousQuestion}
+              disabled={currentQuestionIndex === 0}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors ${
+                currentQuestionIndex === 0
+                  ? 'bg-slate-700 text-slate-500 cursor-not-allowed'
+                  : 'bg-slate-700 text-white hover:bg-slate-600'
+              }`}
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Anterior
+            </button>
+            
+            <div className="text-center">
+              <div className="flex gap-2">
+                {Array.from({ length: totalQuestions }).map((_, index) => (
+                  <div
+                    key={index}
+                    className={`w-3 h-3 rounded-full transition-colors ${
+                      index === currentQuestionIndex
+                        ? 'bg-blue-500'
+                        : index < currentQuestionIndex
+                        ? 'bg-green-500'
+                        : 'bg-slate-600'
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+            
+            <button
+              onClick={handleNextQuestion}
+              disabled={currentQuestionIndex === totalQuestions - 1}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors ${
+                currentQuestionIndex === totalQuestions - 1
+                  ? 'bg-slate-700 text-slate-500 cursor-not-allowed'
+                  : 'bg-slate-700 text-white hover:bg-slate-600'
+              }`}
+            >
+              Próxima
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
 
         </div>
       </div>
