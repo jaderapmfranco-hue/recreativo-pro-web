@@ -72,3 +72,22 @@
 - [x] Build de produção sem erros
 - [x] TypeScript sem erros
 - [x] Mesa renderizando corretamente
+
+
+## 📝 Contexto Textual - Modo Treino
+
+### Área de Contexto
+- [x] Adicionar seção de contexto acima da mesa SVG
+- [x] Exibir Torneio (ex: MTT)
+- [x] Exibir Fase (ex: Bolha)
+- [x] Exibir Stack Efetivo (ex: 45 BB)
+- [x] Exibir Ação até o momento (ex: "UTG fold, MP raise 2.5BB, ação no SB")
+- [x] Usar layout em grid responsivo (2 cols mobile, 4 cols desktop)
+- [x] Estilizar com bg-slate-100 e border para clareza visual
+- [x] Adicionar interface PokerTableProps com props opcionais
+- [x] Valores padrão definidos no componente
+
+### Validação
+- [x] Build de produção sem erros
+- [x] TypeScript sem erros
+- [x] Contexto renderizando corretamente acima da mesa

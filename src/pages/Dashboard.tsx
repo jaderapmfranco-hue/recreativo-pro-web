@@ -253,7 +253,12 @@ export default function Dashboard() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <PokerTable />
+                <PokerTable 
+                  torneio="MTT"
+                  fase="Bolha"
+                  stackEfetivo="45 BB"
+                  acaoAteOMomento="UTG fold, MP raise 2.5BB, ação no SB"
+                />
               </CardContent>
             </Card>
           </div>

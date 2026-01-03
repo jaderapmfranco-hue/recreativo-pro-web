@@ -1,6 +1,40 @@
-export default function PokerTable() {
+interface PokerTableProps {
+  torneio?: string
+  fase?: string
+  stackEfetivo?: string
+  acaoAteOMomento?: string
+}
+
+export default function PokerTable({
+  torneio = 'MTT',
+  fase = 'Início',
+  stackEfetivo = '60 BB',
+  acaoAteOMomento = 'Fold até o herói'
+}: PokerTableProps) {
   return (
-    <div className="w-full max-w-4xl mx-auto p-4">
+    <div className="w-full max-w-4xl mx-auto space-y-4">
+      {/* Contexto Textual */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 p-4 bg-slate-100 rounded-lg border border-slate-200">
+        <div>
+          <p className="text-xs font-medium text-slate-500 mb-1">Torneio</p>
+          <p className="text-sm font-bold text-slate-900">{torneio}</p>
+        </div>
+        <div>
+          <p className="text-xs font-medium text-slate-500 mb-1">Fase</p>
+          <p className="text-sm font-bold text-slate-900">{fase}</p>
+        </div>
+        <div>
+          <p className="text-xs font-medium text-slate-500 mb-1">Stack Efetivo</p>
+          <p className="text-sm font-bold text-slate-900">{stackEfetivo}</p>
+        </div>
+        <div className="col-span-2 md:col-span-1">
+          <p className="text-xs font-medium text-slate-500 mb-1">Ação</p>
+          <p className="text-sm font-bold text-slate-900">{acaoAteOMomento}</p>
+        </div>
+      </div>
+
+      {/* Mesa SVG */}
+      <div className="p-4">
       <svg viewBox="0 0 600 380" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
         <defs>
           <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
@@ -88,6 +122,7 @@ export default function PokerTable() {
         </g>
 
       </svg>
+      </div>
     </div>
   )
 }
