@@ -152,3 +152,33 @@
 - [x] Build de produção sem erros
 - [x] TypeScript sem erros
 - [x] Quiz funcionando corretamente
+
+
+## 🎲 Componente Mesa 9-Max Dinâmico (Motor Universal)
+
+### Objetivo
+- [x] Criar componente base para TODAS as questões do quiz
+- [x] S0 (inferior central) sempre fixo como Hero
+- [x] Aceitar props dinâmicos para controlar aparência
+
+### Props Dinâmicos
+- [x] hero_label: Texto dentro do assento S0 (ex: BTN, SB, UTG)
+- [x] hero_zone_color: Cor do anel (Red, Blue, Green)
+- [x] dealer_position: ID do assento onde chip "D" aparece (S0-S8)
+
+### Implementação
+- [x] Criar PokerTable9Max.tsx baseado no código MATRIZ fornecido
+- [x] Manter layout SVG fixo (viewBox 0 0 600 380)
+- [x] Aplicar classes CSS dinâmicas (.rr, .rb, .rg)
+- [x] Posicionar chip "D" dinamicamente em qualquer assento
+- [x] Manter filtros de sombra e estética profissional
+
+### Integração
+- [x] Atualizar QuizIniciante para usar novo componente
+- [x] Remover lógica de rotação complexa (simplificar)
+- [x] Passar apenas hero_label, hero_zone_color e dealer_position
+
+### Validação
+- [x] Build de produção sem erros
+- [x] TypeScript sem erros
+- [x] Mesa renderizando corretamente com props dinâmicos

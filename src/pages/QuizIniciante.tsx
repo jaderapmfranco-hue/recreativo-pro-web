@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useLocation } from 'wouter'
 import { ChevronLeft, CheckCircle2, XCircle, Info } from 'lucide-react'
-import PokerTable from '../components/PokerTable'
+import PokerTable9Max from '../components/PokerTable9Max'
 import { QUIZ_TESTE_001, QuizQuestion } from '../types/quiz'
-import { assignPositionsToSlots } from '../utils/positionRotation'
+import { POSITION_COLORS } from '../utils/positionRotation'
 
 export default function QuizIniciante() {
   const [, setLocation] = useLocation()
@@ -11,8 +11,12 @@ export default function QuizIniciante() {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
   const [showFeedback, setShowFeedback] = useState(false)
   
-  // Calcular atribuições de slots usando MATRIZ 3
-  const slotAssignments = assignPositionsToSlots(currentQuestion.hero_position)
+  // Mapear cor da posição do hero para prop do componente
+  const heroZoneColor = POSITION_COLORS[currentQuestion.hero_position]
+  const heroZoneColorCapitalized = heroZoneColor.charAt(0).toUpperCase() + heroZoneColor.slice(1) as 'Red' | 'Blue' | 'Green'
+  
+  // Por enquanto, dealer sempre em S0 (será dinâmico no futuro)
+  const dealerPosition = 'S0' as const
   
   // Construir texto da ação até o momento
   const buildActionText = () => {
@@ -69,15 +73,34 @@ export default function QuizIniciante() {
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-5xl mx-auto space-y-6">
           
+          {/* Contexto Textual */}
+          <div className="bg-slate-800 rounded-xl p-6 border border-slate-700">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <div>
+                <p className="text-xs font-medium text-slate-400 mb-1">Torneio</p>
+                <p className="text-sm font-bold text-white">MTT</p>
+              </div>
+              <div>
+                <p className="text-xs font-medium text-slate-400 mb-1">Fase</p>
+                <p className="text-sm font-bold text-white">Meio</p>
+              </div>
+              <div>
+                <p className="text-xs font-medium text-slate-400 mb-1">Stack Efetivo</p>
+                <p className="text-sm font-bold text-white">{currentQuestion.hero_stack}</p>
+              </div>
+              <div className="col-span-2 md:col-span-1">
+                <p className="text-xs font-medium text-slate-400 mb-1">Ação</p>
+                <p className="text-sm font-bold text-white">{buildActionText()}</p>
+              </div>
+            </div>
+          </div>
+
           {/* Mesa de Poker */}
           <div className="bg-slate-800 rounded-xl p-6 border border-slate-700">
-            <PokerTable
-              torneio="MTT"
-              fase="Meio"
-              stackEfetivo={currentQuestion.hero_stack}
-              acaoAteOMomento={buildActionText()}
-              slotAssignments={slotAssignments}
-              heroHand={currentQuestion.hero_hand}
+            <PokerTable9Max
+              hero_label={currentQuestion.hero_position}
+              hero_zone_color={heroZoneColorCapitalized}
+              dealer_position={dealerPosition}
             />
           </div>
 
