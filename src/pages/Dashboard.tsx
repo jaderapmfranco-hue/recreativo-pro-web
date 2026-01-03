@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
 import { BarChart3, BookOpen, LogOut, Settings, Spade, Target, TrendingUp, Wallet } from 'lucide-react';
+import PokerTable from '@/components/PokerTable';
 import { useState } from 'react';
 
 export default function Dashboard() {
@@ -66,7 +67,6 @@ export default function Dashboard() {
           <button
             onClick={() => {
               setActiveSection('training');
-              handlePlaceholderClick('Modo Treino');
             }}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
               activeSection === 'training'
@@ -229,6 +229,31 @@ export default function Dashboard() {
                 <p className="text-sm text-slate-600 text-center">
                   🚀 Os módulos estão em desenvolvimento e serão liberados em breve. Fique atento às atualizações!
                 </p>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {activeSection === 'training' && (
+          <div className="max-w-5xl mx-auto space-y-8">
+            <div>
+              <h2 className="text-3xl font-bold text-slate-900 mb-2">
+                Modo Treino 🎯
+              </h2>
+              <p className="text-slate-600">
+                Pratique suas decisões em cenários reais de poker
+              </p>
+            </div>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Mesa de Poker</CardTitle>
+                <CardDescription>
+                  Visualize a mesa e tome suas decisões
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <PokerTable />
               </CardContent>
             </Card>
           </div>

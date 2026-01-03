@@ -46,3 +46,29 @@
 - [ ] Fazer commit inicial do código frontend
 - [ ] Push para repositório remoto
 - [ ] Documentar processo de deploy no Vercel
+
+
+## 🎴 Mesa de Poker SVG - Modo Treino
+
+### Componente PokerTable
+- [x] Criar componente PokerTable.tsx com SVG fornecido
+- [x] Implementar mesa oval horizontal (460x180, rx=90)
+- [x] Adicionar 9 posições: SB, BB, UTG, UTG+1, MP, MP+1, HJ, CO, BTN
+- [x] Implementar anéis coloridos (vermelho, azul, verde)
+- [x] Adicionar cartas do herói (visíveis - A♠ K♠)
+- [x] Adicionar cartas dos oponentes (verso azul)
+- [x] Implementar dealer button (no BTN)
+- [x] Adicionar sombras e filtros SVG
+- [x] Garantir responsividade (max-w-4xl mx-auto)
+
+### Integração no Modo Treino
+- [x] Integrar PokerTable no Dashboard (activeSection === 'training')
+- [x] Adicionar Card com título e descrição
+- [x] Remover toast placeholder do botão Modo Treino
+- [x] Testar visualização da mesa
+- [x] Validar posições e cores
+
+### Validação
+- [x] Build de produção sem erros
+- [x] TypeScript sem erros
+- [x] Mesa renderizando corretamente
