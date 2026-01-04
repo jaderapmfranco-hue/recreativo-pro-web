@@ -6,9 +6,11 @@ import { toast } from 'sonner';
 import { BarChart3, BookOpen, LogOut, Settings, Spade, Target, TrendingUp, Wallet, GraduationCap } from 'lucide-react';
 import PokerTable from '@/components/PokerTable';
 import { useState } from 'react';
+import { useLocation } from 'wouter';
 
 export default function Dashboard() {
   const { user, signOut } = useAuth();
+  const [, setLocation] = useLocation();
   const [activeSection, setActiveSection] = useState('home');
 
   const handleLogout = async () => {
@@ -277,7 +279,7 @@ export default function Dashboard() {
               </CardHeader>
               <CardContent>
                 <Button 
-                  onClick={() => window.location.href = '/quiz-iniciante'}
+                  onClick={() => setLocation('/quiz-iniciante')}
                   className="w-full bg-orange-600 hover:bg-orange-700"
                 >
                   <GraduationCap className="mr-2 h-5 w-5" />
