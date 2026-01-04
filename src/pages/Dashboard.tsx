@@ -3,14 +3,11 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
-import { BarChart3, BookOpen, LogOut, Settings, Spade, Target, TrendingUp, Wallet, GraduationCap } from 'lucide-react';
-import PokerTable from '@/components/PokerTable';
+import { BarChart3, BookOpen, LogOut, Settings, Spade, Target, TrendingUp, Wallet } from 'lucide-react';
 import { useState } from 'react';
-import { useLocation } from 'wouter';
 
 export default function Dashboard() {
   const { user, signOut } = useAuth();
-  const [, setLocation] = useLocation();
   const [activeSection, setActiveSection] = useState('home');
 
   const handleLogout = async () => {
@@ -69,6 +66,7 @@ export default function Dashboard() {
           <button
             onClick={() => {
               setActiveSection('training');
+              handlePlaceholderClick('Modo Treino');
             }}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
               activeSection === 'training'
@@ -225,96 +223,12 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Card Quiz Iniciante */}
-            <div>
-              <h3 className="text-xl font-semibold text-slate-900 mb-4 mt-8">Quiz Educacional</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => setActiveSection('quiz')}>
-                  <CardHeader>
-                    <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-3">
-                      <GraduationCap className="h-6 w-6 text-orange-600" />
-                    </div>
-                    <CardTitle>Quiz Iniciante</CardTitle>
-                    <CardDescription>
-                      Teste seus conhecimentos com perguntas práticas sobre situações de poker
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Button variant="outline" className="w-full">
-                      Iniciar Quiz
-                    </Button>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-
             {/* Informação sobre desenvolvimento */}
             <Card className="border-slate-200 bg-slate-50">
               <CardContent className="pt-6">
                 <p className="text-sm text-slate-600 text-center">
                   🚀 Os módulos estão em desenvolvimento e serão liberados em breve. Fique atento às atualizações!
                 </p>
-              </CardContent>
-            </Card>
-          </div>
-        )}
-
-        {activeSection === 'quiz' && (
-          <div className="max-w-5xl mx-auto space-y-8">
-            <div>
-              <h2 className="text-3xl font-bold text-slate-900 mb-2">
-                Quiz Iniciante 🎓
-              </h2>
-              <p className="text-slate-600">
-                Teste seus conhecimentos com perguntas práticas sobre situações de poker
-              </p>
-            </div>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Pronto para começar?</CardTitle>
-                <CardDescription>
-                  Você vai responder perguntas sobre situações reais de poker e receber feedback instantâneo
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button 
-                  onClick={() => setLocation('/quiz-iniciante')}
-                  className="w-full bg-orange-600 hover:bg-orange-700"
-                >
-                  <GraduationCap className="mr-2 h-5 w-5" />
-                  Iniciar Quiz Iniciante
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-        )}
-
-        {activeSection === 'training' && (
-          <div className="max-w-5xl mx-auto space-y-8">
-            <div>
-              <h2 className="text-3xl font-bold text-slate-900 mb-2">
-                Modo Treino 🎯
-              </h2>
-              <p className="text-slate-600">
-                Pratique suas decisões em cenários reais de poker
-              </p>
-            </div>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Mesa de Poker</CardTitle>
-                <CardDescription>
-                  Visualize a mesa e tome suas decisões
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <PokerTable 
-                  torneio="MTT"
-                  fase="Bolha"
-                  stackEfetivo="45 BB"
-                  acaoAteOMomento="UTG fold, MP raise 2.5BB, ação no SB"
-                />
               </CardContent>
             </Card>
           </div>

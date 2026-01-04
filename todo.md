@@ -265,3 +265,32 @@
 - [x] Build de produção sem erros
 - [x] Navegação entre páginas funcionando
 - [x] Cards redirecionando corretamente
+
+
+## 🔄 Restauração do Layout MVP
+
+### Objetivo
+- [x] Restaurar layout visual para estado do MVP
+- [x] Manter autenticação funcionando
+- [x] Manter Supabase configurado
+- [x] Manter Quiz implementado (ocultar da interface)
+- [x] Manter todas as rotas existentes
+
+### Arquivos a Restaurar
+- [x] src/pages/Dashboard.tsx (layout visual)
+- [x] src/pages/Home.tsx (se existir no MVP)
+- [x] src/components/ (componentes visuais do MVP)
+
+### Arquivos a NÃO Modificar
+- [x] Autenticação (AuthContext, ProtectedRoute, Login)
+- [x] Configuração Supabase
+- [x] src/pages/QuizIniciante.tsx (manter, apenas ocultar)
+- [x] src/types/quiz.ts
+- [x] App.tsx (rotas)
+- [x] vercel.json
+
+### Validação
+- [x] Build de produção sem erros
+- [x] Autenticação funcionando
+- [x] Layout MVP restaurado
+- [x] Quiz acessível via URL direta (mas não visível no menu)
